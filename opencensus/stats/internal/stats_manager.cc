@@ -84,7 +84,7 @@ void StatsManager::ViewInformation::MergeMeasureData(
 }
 
 std::unique_ptr<ViewDataImpl> StatsManager::ViewInformation::GetData() {
-  absl::ReaderMutexLock l(mu_);
+  absl::MutexLock l(mu_);
   if (data_.type() == ViewDataImpl::Type::kStatsObject) {
     return absl::make_unique<ViewDataImpl>(data_, absl::Now());
   } else if (descriptor_.aggregation_window_.type() ==
